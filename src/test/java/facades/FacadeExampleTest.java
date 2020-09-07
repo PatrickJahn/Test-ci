@@ -40,9 +40,8 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            String[] actors = {"Bob smith", "Crane Juvilander"};
-            em.persist(new Movie(1995,"Bob the builder", actors));
-            em.persist(new Movie(1996, "Bob the builder 2", actors));
+            em.persist(new Movie(1995,"Bob the builder"));
+            em.persist(new Movie(1996, "Bob the builder 2"));
 
             em.getTransaction().commit();
         } finally {

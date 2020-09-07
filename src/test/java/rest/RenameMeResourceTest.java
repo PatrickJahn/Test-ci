@@ -62,9 +62,9 @@ public class RenameMeResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        String[] actors = {"Bob smith", "Crane Juvilander"};
-        r1 = new Movie(1995,"Bob the builder", actors);
-        r2 = new Movie(1996,"Bob the builder 2", actors); 
+
+        r1 = new Movie(1995,"Bob the builder");
+        r2 = new Movie(1996,"Bob the builder 2"); 
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
@@ -80,6 +80,7 @@ public class RenameMeResourceTest {
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
         given().when().get("/movie").then().statusCode(200);
+       
     }
    
     //This test assumes the database contains two rows
@@ -111,6 +112,6 @@ public class RenameMeResourceTest {
         .get("/movie/1").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("id", equalTo(1));   
+        .body("year", equalTo(1995));   
     }
 }

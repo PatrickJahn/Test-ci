@@ -1,5 +1,6 @@
 package facades;
 
+import dto.MovieDTO;
 import entities.Movie;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -36,11 +37,11 @@ public class MovieFacade {
         return emf.createEntityManager();
     }
     
-   public Movie getMovieByID(Long id){
+   public MovieDTO getMovieByID(Long id){
        EntityManager em = emf.createEntityManager();
          try{
             Movie movie = em.find(Movie.class, id);
-            return movie;
+            return new MovieDTO(movie);
         }finally{  
             em.close();
         }

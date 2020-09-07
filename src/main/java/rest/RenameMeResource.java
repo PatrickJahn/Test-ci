@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 import facades.MovieFacade;
@@ -43,9 +44,9 @@ public class RenameMeResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMovieByID(@PathParam("id") Long id) {
-        Movie movie = FACADE.getMovieByID(id);
-        System.out.println("--------------->"+GSON.toJson(movie, Movie.class));
-          return GSON.toJson(movie, Movie.class);
+        MovieDTO movie = FACADE.getMovieByID(id);
+        
+          return GSON.toJson(movie, MovieDTO.class);
     }
     
 }
