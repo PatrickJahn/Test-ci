@@ -1,5 +1,6 @@
 package rest;
 
+
 import entities.Movie;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
@@ -63,16 +64,16 @@ public class RESTMovieTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-         String[] act = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
-        r1 = new Movie(1995,"Bob the builder", act);
-        r2 = new Movie(1996,"Bob the builder 2", act); 
+     
+        r1 = new Movie(1995,"Bob the builder", "Fantasy");
+        r2 = new Movie(1996,"Bob the builder 2", "Thriller"); 
         
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
-             em.persist(new Movie(1820, "Bob the builder 21", act)); 
+             em.persist(new Movie(1820, "Bob the builder 21", "sci-fi")); 
             
             em.getTransaction().commit();
         } finally { 
@@ -132,15 +133,6 @@ public class RESTMovieTest {
         .body("year", equalTo(1820));   
     }
     
-     @Test
-    @Disabled
-    public void testGetActors() throws Exception {
-       given()
-        .contentType("application/json")
-        .get("/movie/actors/Bob the builder").then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("actors", equalTo(""));   
-    }
+   
     
 }

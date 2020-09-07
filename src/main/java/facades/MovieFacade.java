@@ -1,6 +1,6 @@
 package facades;
 
-import dto.ActorsDTO;
+
 import dto.MovieDTO;
 import entities.Movie;
 import java.util.Arrays;
@@ -88,16 +88,5 @@ public class MovieFacade {
     }
 
      
-      public ActorsDTO getActorsByTittle(String name){
-        EntityManager em = emf.createEntityManager();
-        try{
-            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.title = ?1", Movie.class);
-            tq.setParameter(1, name);
-         
-            return new ActorsDTO(tq.getResultList().get(0));
-        }finally{  
-            em.close();
-        }
-        
-    }
+      
 }

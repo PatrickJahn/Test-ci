@@ -1,6 +1,6 @@
 package facades;
 
-import dto.ActorsDTO;
+
 import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
@@ -45,10 +45,10 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            String[] act = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
-            em.persist(new Movie(1982,"Bob the builder", act));
-            em.persist(new Movie(1995, "Bob the builder 2", act));
-            em.persist(new Movie(2001, "Bob the builder 21", act));       
+          
+            em.persist(new Movie(1982,"Bob the builder", "Fantasy"));
+            em.persist(new Movie(1995, "Bob the builder 2", "Thriller"));
+            em.persist(new Movie(2001, "Bob the builder 21", "Sci-fi"));       
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -94,17 +94,6 @@ public class FacadeExampleTest {
         
     }
 
-    @Test
-    public void testGetActorsByTittle(){
-     
-       ActorsDTO actual  = facade.getActorsByTittle("Bob the builder");
-       String[] act = actual.getActors();
-       String[] ecp = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
-       
-          for (int i = 0; i < ecp.length; i++) {
-              assertEquals(ecp[i], act[i]);
-    }
-        
-    }
+   
     
 }

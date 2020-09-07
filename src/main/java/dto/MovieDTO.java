@@ -15,12 +15,14 @@ public class MovieDTO {
     
      private int year;
     private String title;
-    private String[] actors;
+    private String genre;
+   // private String[] actors;
     
     public MovieDTO(Movie movie){
         this.year = movie.getYear();
         this.title = movie.getTitle();
-        this.actors = movie.getActors();
+        this.genre = genre;
+       // this.actors = movie.getActors();
     }
 
     public int getYear() {
@@ -39,7 +41,14 @@ public class MovieDTO {
         this.title = title;
     }
 
-    public String[] getActors() {
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    
+    
+    
+
+   /* public String[] getActors() {
         return actors;
     }
 
@@ -47,5 +56,9 @@ public class MovieDTO {
         this.actors = actors;
     }
     
-    
+    */
+
+    public String getGenre() {
+        return genre;
+    }
 }

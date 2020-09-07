@@ -18,17 +18,19 @@ public class Movie implements Serializable {
     private Long id;
     private int year;
     private String title;
-    private String[] actors;
+    private String genre;
+  //  private String[] actors;
     
 
     public Movie() {
     }
             
 
-    public Movie(int year, String title, String[] actors) {
+    public Movie(int year, String title, String genre) {
         this.year = year;
         this.title = title;
-        this.actors = actors;
+        this.genre = genre;
+      //  this.actors = actors;
        
     }
 
@@ -58,14 +60,26 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public String[] getActors() {
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    
+    
+    
+    
+   /* public String[] getActors() {
         return actors;
     }
 
     public void setActors(String[] actors) {
         this.actors = actors;
     }
-
+*/
     
     
     

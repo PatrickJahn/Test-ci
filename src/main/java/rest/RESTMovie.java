@@ -2,7 +2,6 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.ActorsDTO;
 import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
@@ -67,12 +66,5 @@ public class RESTMovie {
           return GSON.toJson(movie);
     }
     
-    @Path("actors/{title}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getActorsByTitle(@PathParam("title") String title) {
-        ActorsDTO actors = FACADE.getActorsByTittle(title);
-        
-          return GSON.toJson(actors);
-    }
+    
 }
