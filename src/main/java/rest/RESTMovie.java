@@ -36,7 +36,6 @@ public class RESTMovie {
     @Produces({MediaType.APPLICATION_JSON})
     public String getRenameMeCount() {
         long count = FACADE.getMovieCount();
-        //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
@@ -49,13 +48,26 @@ public class RESTMovie {
           return GSON.toJson(movie, MovieDTO.class);
     }
     
-     @Path("{genre}")
+    
+    @Path("genre/{genre}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMovieByGenre(@PathParam("genre") String genre) {
         List<Movie> movie = FACADE.getByGenre(genre);
         return GSON.toJson(movie);
     }
+    
+    @Path("title/{title}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getMovieByTitle(@PathParam("title") String title) {
+        MovieDTO movie = FACADE.getByTitle(title);
+        if (movie.getGenre() == null){
+            return "{\"Title\":\"Not found\"}";
+        }
+        return GSON.toJson(movie);
+    }
+    
     
     @Path("oldest")
     @GET

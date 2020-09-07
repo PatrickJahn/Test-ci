@@ -95,6 +95,16 @@ public class FacadeExampleTest {
         
     }
     
+     @Test
+    public void testGetByTittle(){
+        String genre = "Thriller";
+          String title = "Bob the builder 2";
+       MovieDTO movie = facade.getByTitle(title);
+       assertEquals(genre, movie.getGenre());
+ 
+        
+    }
+    
       @Test
     public void testGetAll(){
      

@@ -100,6 +100,23 @@ public class MovieFacade {
         }
         
     }
+      
+      
+      public MovieDTO getByTitle(String titel){
+        EntityManager em = emf.createEntityManager();
+        try{
+            // Kan ikke få lov til at bruge min DTO her..
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.title = ?1", Movie.class);
+           tq.setParameter(1, titel);
+            return new MovieDTO(tq.getSingleResult());
+        }catch (Exception e) {
+                    return new MovieDTO();
+                    
+        }finally{  
+            em.close();
+        }
+        
+    }
 
      
       

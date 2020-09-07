@@ -133,6 +133,26 @@ public class RESTMovieTest {
         .body("year", equalTo(1820));   
     }
     
+     @Test
+    public void testTitle() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/title/Bob the builder").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("genre", equalTo("Fantasy"));   
+    }
+    
+     @Test
+    public void testTitleNegative() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/title/foo").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("Title", equalTo("Not found"));
+        
+    }
    
     
 }
