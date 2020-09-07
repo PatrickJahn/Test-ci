@@ -88,13 +88,13 @@ public class MovieFacade {
     }
 
      
-      public String[] getActorsByTittle(String name){
+      public ActorsDTO getActorsByTittle(String name){
         EntityManager em = emf.createEntityManager();
         try{
-            TypedQuery<String[]> tq = em.createQuery("SELECT m.actors FROM Movie m WHERE m.title = ?1", String[].class);
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.title = ?1", Movie.class);
             tq.setParameter(1, name);
          
-            return tq.getSingleResult();
+            return new ActorsDTO(tq.getResultList().get(0));
         }finally{  
             em.close();
         }

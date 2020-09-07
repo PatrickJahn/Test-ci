@@ -13,7 +13,7 @@ import entities.Movie;
  */
 public class ActorsDTO {
     
-    String[] actors; 
+    private String[] actors; 
     
     public ActorsDTO(Movie m){
         this.actors = m.getActors();

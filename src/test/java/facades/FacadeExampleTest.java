@@ -1,5 +1,6 @@
 package facades;
 
+import dto.ActorsDTO;
 import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
@@ -96,12 +97,12 @@ public class FacadeExampleTest {
     @Test
     public void testGetActorsByTittle(){
      
-       String[] actual = facade.getActorsByTittle("Bob the builder");
-  
+       ActorsDTO actual  = facade.getActorsByTittle("Bob the builder");
+       String[] act = actual.getActors();
        String[] ecp = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
        
           for (int i = 0; i < ecp.length; i++) {
-              assertEquals(ecp[i], actual[i]);
+              assertEquals(ecp[i], act[i]);
     }
         
     }
