@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 //Todo Remove or change relevant parts before ACTUAL use
 @Path("movie")
-public class RenameMeResource {
+public class RESTMovie {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     
@@ -61,8 +61,17 @@ public class RenameMeResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
-        List<Movie> movie = FACADE.getOldestMovies();
+        List<Movie> movie = FACADE.getAll();
         
           return GSON.toJson(movie);
+    }
+    
+    @Path("actors/{title}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getActorsByTitle(@PathParam("title") String title) {
+        String[] actors = FACADE.getActorsByTittle(title);
+        
+          return GSON.toJson(actors);
     }
 }

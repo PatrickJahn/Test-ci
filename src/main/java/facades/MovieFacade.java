@@ -1,7 +1,9 @@
 package facades;
 
+import dto.ActorsDTO;
 import dto.MovieDTO;
 import entities.Movie;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,9 +44,9 @@ public class MovieFacade {
        EntityManager em = emf.createEntityManager();
          try{
             Movie movie = em.find(Movie.class, id);
-            if (movie != null){
+
             return new MovieDTO(movie);
-            } else return new MovieDTO(new Movie(0, "Null"));
+            
         }finally{  
             em.close();
         }
@@ -85,4 +87,17 @@ public class MovieFacade {
         
     }
 
+     
+      public String[] getActorsByTittle(String name){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<String[]> tq = em.createQuery("SELECT m.actors FROM Movie m WHERE m.title = ?1", String[].class);
+            tq.setParameter(1, name);
+         
+            return tq.getSingleResult();
+        }finally{  
+            em.close();
+        }
+        
+    }
 }

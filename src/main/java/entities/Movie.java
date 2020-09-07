@@ -18,15 +18,17 @@ public class Movie implements Serializable {
     private Long id;
     private int year;
     private String title;
+    private String[] actors;
     
 
     public Movie() {
     }
             
 
-    public Movie(int year, String title) {
+    public Movie(int year, String title, String[] actors) {
         this.year = year;
         this.title = title;
+        this.actors = actors;
        
     }
 
@@ -56,6 +58,17 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
+    public String[] getActors() {
+        return actors;
+    }
+
+    public void setActors(String[] actors) {
+        this.actors = actors;
+    }
+
+    
+    
+    
     @Override
     public String toString() {
         return "Movie{" + "id=" + id + ", year=" + year + ", title=" + title + '}';

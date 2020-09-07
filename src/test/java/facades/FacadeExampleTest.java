@@ -44,9 +44,10 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            em.persist(new Movie(1982,"Bob the builder"));
-            em.persist(new Movie(1995, "Bob the builder 2"));
-            em.persist(new Movie(2001, "Bob the builder 21"));       
+            String[] act = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
+            em.persist(new Movie(1982,"Bob the builder", act));
+            em.persist(new Movie(1995, "Bob the builder 2", act));
+            em.persist(new Movie(2001, "Bob the builder 21", act));       
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -89,9 +90,20 @@ public class FacadeExampleTest {
        List<Movie> all = facade.getAll();
        
        assertEquals(3, all.size());
- 
         
     }
 
+    @Test
+    public void testGetActorsByTittle(){
+     
+       String[] actual = facade.getActorsByTittle("Bob the builder");
+  
+       String[] ecp = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
+       
+          for (int i = 0; i < ecp.length; i++) {
+              assertEquals(ecp[i], actual[i]);
+    }
+        
+    }
     
 }

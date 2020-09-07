@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class RenameMeResourceTest {
+public class RESTMovieTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
@@ -63,16 +63,16 @@ public class RenameMeResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-
-        r1 = new Movie(1995,"Bob the builder");
-        r2 = new Movie(1996,"Bob the builder 2"); 
+         String[] act = {"Pia k", "Jack Sparrow", "David Hasselhoff"};
+        r1 = new Movie(1995,"Bob the builder", act);
+        r2 = new Movie(1996,"Bob the builder 2", act); 
         
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
-             em.persist(new Movie(1820, "Bob the builder 21")); 
+             em.persist(new Movie(1820, "Bob the builder 21", act)); 
             
             em.getTransaction().commit();
         } finally { 
@@ -111,7 +111,7 @@ public class RenameMeResourceTest {
      @Test
      @Disabled
     public void testMovieByid() throws Exception {
-        //FORSTÅR IKKE HVORFOR DEN IKKE VIRKER
+       
         given()
         .contentType("application/json")
         .get("/movie/2").then()
@@ -131,4 +131,16 @@ public class RenameMeResourceTest {
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("year", equalTo(1820));   
     }
+    
+     @Test
+    @Disabled
+    public void testGetActors() throws Exception {
+       given()
+        .contentType("application/json")
+        .get("/movie/actors/Bob the builder").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("actors", equalTo(""));   
+    }
+    
 }
