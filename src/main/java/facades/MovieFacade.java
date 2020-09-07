@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -41,7 +42,9 @@ public class MovieFacade {
        EntityManager em = emf.createEntityManager();
          try{
             Movie movie = em.find(Movie.class, id);
+            if (movie != null){
             return new MovieDTO(movie);
+            } else return new MovieDTO(new Movie(0, "Null"));
         }finally{  
             em.close();
         }
@@ -54,6 +57,28 @@ public class MovieFacade {
         try{
             long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Movie r").getSingleResult();
             return renameMeCount;
+        }finally{  
+            em.close();
+        }
+        
+    }
+    
+     public List<Movie> getOldestMovies(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.year = (SELECT min(m.year) FROM Movie m)", Movie.class);
+            return tq.getResultList();
+        }finally{  
+            em.close();
+        }
+        
+    }
+     
+     public List<Movie> getAll(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m", Movie.class);
+            return tq.getResultList();
         }finally{  
             em.close();
         }

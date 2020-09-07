@@ -4,6 +4,7 @@ import entities.Movie;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import java.net.URI;
 import javax.persistence.EntityManager;
@@ -65,11 +66,14 @@ public class RenameMeResourceTest {
 
         r1 = new Movie(1995,"Bob the builder");
         r2 = new Movie(1996,"Bob the builder 2"); 
+        
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
+             em.persist(new Movie(1820, "Bob the builder 21")); 
+            
             em.getTransaction().commit();
         } finally { 
             em.close();
@@ -101,17 +105,30 @@ public class RenameMeResourceTest {
         .get("/movie/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
+        .body("count", equalTo(3));   
     }
     
      @Test
      @Disabled
     public void testMovieByid() throws Exception {
+        //FORSTÅR IKKE HVORFOR DEN IKKE VIRKER
         given()
         .contentType("application/json")
-        .get("/movie/1").then()
+        .get("/movie/2").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("year", equalTo(1995));   
+    }
+    
+    
+    @Test
+    @Disabled
+    public void testOldestMovie() throws Exception {
+       given()
+        .contentType("application/json")
+        .get("/movie/oldest").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("year", equalTo(1820));   
     }
 }

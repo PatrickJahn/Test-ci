@@ -6,6 +6,7 @@ import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 import facades.MovieFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -45,8 +46,23 @@ public class RenameMeResource {
     @Produces({MediaType.APPLICATION_JSON})
     public String getMovieByID(@PathParam("id") Long id) {
         MovieDTO movie = FACADE.getMovieByID(id);
-        
           return GSON.toJson(movie, MovieDTO.class);
     }
+    @Path("oldest")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getOldestMovies() {
+        List<Movie> movie = FACADE.getOldestMovies();
+        
+          return GSON.toJson(movie);
+    }
     
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllMovies() {
+        List<Movie> movie = FACADE.getOldestMovies();
+        
+          return GSON.toJson(movie);
+    }
 }

@@ -1,7 +1,10 @@
 package facades;
 
-import utils.EMF_Creator;
+import dto.MovieDTO;
 import entities.Movie;
+import utils.EMF_Creator;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -9,6 +12,7 @@ import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
@@ -40,9 +44,9 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            em.persist(new Movie(1995,"Bob the builder"));
-            em.persist(new Movie(1996, "Bob the builder 2"));
-
+            em.persist(new Movie(1982,"Bob the builder"));
+            em.persist(new Movie(1995, "Bob the builder 2"));
+            em.persist(new Movie(2001, "Bob the builder 21"));       
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -57,7 +61,37 @@ public class FacadeExampleTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(2, facade.getMovieCount(), "Expects two rows in the database");
+        assertEquals(3, facade.getMovieCount(), "Expects two rows in the database");
+    }
+    
+    @Test 
+    @Disabled
+    public void testGetById(){
+        Long i = (long) 16;
+       MovieDTO d = facade.getMovieByID(i);
+        assertEquals(1995, d.getYear());
+        
+    }
+    
+    
+    @Test
+    public void testGetOldestMovies(){
+     
+       List<Movie> oldestM = facade.getOldestMovies();
+       assertEquals((int) 1982, oldestM.get(0).getYear());
+ 
+        
+    }
+    
+      @Test
+    public void testGetAll(){
+     
+       List<Movie> all = facade.getAll();
+       
+       assertEquals(3, all.size());
+ 
+        
     }
 
+    
 }
