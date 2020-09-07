@@ -68,6 +68,7 @@ public class MovieFacade {
      public List<Movie> getOldestMovies(){
         EntityManager em = emf.createEntityManager();
         try{
+            // Kan ikke bruge DTO her, muligvis fordi jeg har query inde i en anden
             TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.year = (SELECT min(m.year) FROM Movie m)", Movie.class);
             return tq.getResultList();
         }finally{  
@@ -76,10 +77,23 @@ public class MovieFacade {
         
     }
      
-     public List<Movie> getAll(){
+     public List<MovieDTO> getAll(){
         EntityManager em = emf.createEntityManager();
         try{
-            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m", Movie.class);
+            TypedQuery<MovieDTO> tq = em.createQuery("SELECT m FROM Movie m", MovieDTO.class);
+            return tq.getResultList();
+        }finally{  
+            em.close();
+        }
+        
+    }
+     
+      public List<Movie> getByGenre(String genre){
+        EntityManager em = emf.createEntityManager();
+        try{
+            // Kan ikke få lov til at bruge min DTO her..
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.genre = ?1", Movie.class);
+           tq.setParameter(1, genre);
             return tq.getResultList();
         }finally{  
             em.close();

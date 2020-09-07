@@ -48,6 +48,15 @@ public class RESTMovie {
         MovieDTO movie = FACADE.getMovieByID(id);
           return GSON.toJson(movie, MovieDTO.class);
     }
+    
+     @Path("{genre}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getMovieByGenre(@PathParam("genre") String genre) {
+        List<Movie> movie = FACADE.getByGenre(genre);
+        return GSON.toJson(movie);
+    }
+    
     @Path("oldest")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -61,10 +70,12 @@ public class RESTMovie {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
-        List<Movie> movie = FACADE.getAll();
+        List<MovieDTO> movie = FACADE.getAll();
         
           return GSON.toJson(movie);
     }
+    
+    
     
     
 }

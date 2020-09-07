@@ -85,10 +85,20 @@ public class FacadeExampleTest {
         
     }
     
+     @Test
+    public void testGetbyGenre(){
+        String genre = "Thriller";
+          String title = "Bob the builder 2";
+       List<Movie> mov = facade.getByGenre(genre);
+       assertEquals(title, mov.get(0).getTitle());
+ 
+        
+    }
+    
       @Test
     public void testGetAll(){
      
-       List<Movie> all = facade.getAll();
+       List<MovieDTO> all = facade.getAll();
        
        assertEquals(3, all.size());
         
