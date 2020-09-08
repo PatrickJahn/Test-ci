@@ -53,7 +53,7 @@ public class RESTMovie {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getMovieByGenre(@PathParam("genre") String genre) {
-        List<Movie> movie = FACADE.getByGenre(genre);
+        List<MovieDTO> movie = new MovieDTO(FACADE.getByGenre(genre)).getList();
         return GSON.toJson(movie);
     }
     
@@ -73,8 +73,7 @@ public class RESTMovie {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getOldestMovies() {
-        List<Movie> movie = FACADE.getOldestMovies();
-        
+  List<MovieDTO> movie = new MovieDTO(FACADE.getOldestMovies()).getList();
           return GSON.toJson(movie);
     }
     

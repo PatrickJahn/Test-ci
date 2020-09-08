@@ -23,6 +23,8 @@ public class FacadeExampleTest {
     private static EntityManagerFactory emf;
     private static MovieFacade facade;
 
+      Movie m1 = new Movie(1982,"Bob the builder", "Fantasy");
+    
     public FacadeExampleTest() {
     }
 
@@ -30,6 +32,7 @@ public class FacadeExampleTest {
     public static void setUpClass() {
        emf = EMF_Creator.createEntityManagerFactoryForTest();
        facade = MovieFacade.getFacadeExample(emf);
+     
     }
 
     @AfterAll
@@ -46,7 +49,7 @@ public class FacadeExampleTest {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
           
-            em.persist(new Movie(1982,"Bob the builder", "Fantasy"));
+            em.persist(m1);
             em.persist(new Movie(1995, "Bob the builder 2", "Thriller"));
             em.persist(new Movie(2001, "Bob the builder 21", "Sci-fi"));       
             em.getTransaction().commit();
@@ -67,11 +70,10 @@ public class FacadeExampleTest {
     }
     
     @Test 
-    @Disabled
     public void testGetById(){
-        Long i = (long) 16;
+       Long i = m1.getId();
        MovieDTO d = facade.getMovieByID(i);
-        assertEquals(1995, d.getYear());
+        assertEquals(1982, d.getYear());
         
     }
     

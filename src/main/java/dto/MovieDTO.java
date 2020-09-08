@@ -6,6 +6,7 @@
 package dto;
 
 import entities.Movie;
+import java.util.List;
 
 /**
  *
@@ -14,7 +15,7 @@ import entities.Movie;
 public class MovieDTO {
     
 
-   
+   private List<MovieDTO> list;
      private int year;
     private String title;
     private String genre;
@@ -27,6 +28,18 @@ public class MovieDTO {
         this.title = movie.getTitle();
         this.genre = movie.getGenre();
        // this.actors = movie.getActors();
+    }
+    
+    public MovieDTO(List<Movie> movie){
+        
+        for (Movie m : movie){
+            list.add(new MovieDTO(m));
+    }
+     
+    }
+
+    public List<MovieDTO> getList() {
+        return list;
     }
 
     public int getYear() {

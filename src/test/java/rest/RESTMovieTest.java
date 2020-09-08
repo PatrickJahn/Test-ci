@@ -1,6 +1,8 @@
 package rest;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import entities.Movie;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
@@ -8,6 +10,8 @@ import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -16,6 +20,7 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +37,8 @@ public class RESTMovieTest {
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
+    
+     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -110,12 +117,11 @@ public class RESTMovieTest {
     }
     
      @Test
-     @Disabled
     public void testMovieByid() throws Exception {
        
         given()
         .contentType("application/json")
-        .get("/movie/2").then()
+        .get("/movie/" + r1.getId()).then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("year", equalTo(1995));   
@@ -123,14 +129,16 @@ public class RESTMovieTest {
     
     
     @Test
-    @Disabled
     public void testOldestMovie() throws Exception {
+       
+       
+       
        given()
         .contentType("application/json")
         .get("/movie/oldest").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("year", equalTo(1820));   
+        .body("size()", equalTo(1));   
     }
     
      @Test
@@ -151,6 +159,19 @@ public class RESTMovieTest {
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("Title", equalTo("Not found"));
+        
+    }
+    
+    @Test
+    public void testGetAll() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/movie/all").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("size()", equalTo(3))
+        .and()
+         .body("title", hasItems("Bob the builder","Bob the builder 2", "Bob the builder 21"));
         
     }
    
