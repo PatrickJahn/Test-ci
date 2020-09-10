@@ -3,7 +3,6 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.MovieDTO;
-import entities.Movie;
 import utils.EMF_Creator;
 import facades.MovieFacade;
 import java.util.List;
@@ -68,7 +67,7 @@ public class RESTMovie {
         return GSON.toJson(movie);
     }
     
-    
+    /*
     @Path("oldest")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -77,7 +76,7 @@ public class RESTMovie {
   
           return GSON.toJson(movie);
     }
-    
+    */
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
