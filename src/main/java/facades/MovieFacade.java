@@ -65,6 +65,7 @@ public class MovieFacade {
         
     }
     
+    /*
      public List<Movie> getOldestMovies(){
         EntityManager em = emf.createEntityManager();
         try{
@@ -76,7 +77,7 @@ public class MovieFacade {
         }
         
     }
-     
+     */
      public List<MovieDTO> getAll(){
         EntityManager em = emf.createEntityManager();
         try{

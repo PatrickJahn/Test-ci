@@ -30,6 +30,7 @@ public class RESTMovie {
     public String demo() {
         return "{\"msg\":\"Hello World\"}";
     }
+    
     @Path("count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -82,7 +83,6 @@ public class RESTMovie {
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllMovies() {
         List<MovieDTO> movie = FACADE.getAll();
-        
           return GSON.toJson(movie);
     }
     

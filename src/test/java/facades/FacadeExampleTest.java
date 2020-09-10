@@ -4,7 +4,6 @@ package facades;
 import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
@@ -77,15 +75,16 @@ public class FacadeExampleTest {
         
     }
     
-    
+    /*
     @Test
     public void testGetOldestMovies(){
      
-       List<Movie> oldestM = facade.getOldestMovies();
+      // List<Movie> oldestM = facade.getOldestMovies();
        assertEquals((int) 1982, oldestM.get(0).getYear());
  
         
     }
+*/
     
      @Test
     public void testGetbyGenre(){
