@@ -6,6 +6,7 @@ import dto.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 import facades.MovieFacade;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
@@ -73,8 +74,12 @@ public class RESTMovie {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getOldestMovies() {
-  List<MovieDTO> movie = new MovieDTO(FACADE.getOldestMovies()).getList();
-          return GSON.toJson(movie);
+  List<MovieDTO> movies = new ArrayList<MovieDTO>();
+    for (Movie m : FACADE.getOldestMovies()){
+        movies.add(new MovieDTO(m));
+    }
+         
+          return GSON.toJson(movies);
     }
     
     @Path("all")

@@ -69,7 +69,7 @@ public class MovieFacade {
         EntityManager em = emf.createEntityManager();
         try{
             // Kan ikke bruge DTO her, muligvis fordi jeg har query inde i en anden
-            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.year = (SELECT min(m.year) FROM Movie m)", Movie.class);
+            TypedQuery<Movie> tq = em.createQuery("SELECT m FROM Movie m WHERE m.year = (SELECT MIN(a.year) FROM Movie a)", Movie.class);
             return tq.getResultList();
         }finally{  
             em.close();
