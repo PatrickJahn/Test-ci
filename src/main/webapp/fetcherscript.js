@@ -26,7 +26,7 @@ fetch(url)
      Observe the output from the log-output above
      Now, just build your DOM changes using the data*/   
              
-           document.getElementById("dd").innerHTML = createHtmlById(data);
+           document.getElementById("movieDsc").innerHTML = createHtmlById(data);
              
 });
 
