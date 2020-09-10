@@ -130,9 +130,6 @@ public class RESTMovieTest {
     
     @Test
     public void testOldestMovie() throws Exception {
-       
-       
-       
        given()
         .contentType("application/json")
         .get("/movie/oldest").then()
