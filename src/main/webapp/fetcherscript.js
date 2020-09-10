@@ -9,8 +9,9 @@ document.getElementById("form1").addEventListener('click', getInfo);
 
   function getInfo(){
     var url = "https://patrickcph.dk/devops-starter/api/movie/";
-    if (event.target.id !== "fid"){
+    if (event.target.id !== "ftextbox"){
     event.preventDefault();
+    
     
     var getBy = event.target.id;
     
@@ -56,6 +57,8 @@ function getUrlAddOn(id){
           return "title/"+ document.getElementById("ftextbox").value;
       case "genre": 
            return "genre/"+ document.getElementById("ftextbox").value;
+       case "all":
+       return "";
        default: 
            return "";
     }
