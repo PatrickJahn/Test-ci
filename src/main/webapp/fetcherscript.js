@@ -9,6 +9,7 @@ document.getElementById("form1").addEventListener('click', getInfo);
 
   function getInfo(){
     var url = "https://patrickcph.dk/devops-starter/api/movie/";
+    event.stopPropagation();
     if (event.target.id !== "ftextbox"){
     event.preventDefault();
     
