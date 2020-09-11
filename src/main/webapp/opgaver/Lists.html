@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>2</h1>
+        <div id="outer">
+               <form id="form1">
+  <label for="fname">Name:</label><br>
+  <input type="text" id="fname" name="fname"><br>
+  <input id="sub" type="submit" value="Submit">
+    </form>
+         
+        </div>
+         <button id="but1" >Remove last</button>     <button id="but2" >remove first</button>  
+         <div id="list"></div>
+        <script>
+            
+var arr = ["Peter", "Lars", "Ole", "Sanne", "Hans", "Bo"];
+var i = 0;
+
+function makeUL(a){
+    i = 0;
+    return a.map(function(name){
+        console.log(i);
+    if (i === 0){
+            i++;
+        return "<ul id=\"mylist\"><li>" + name;
+    }
+    if (i === a.length - 1){
+            i++;
+        return "<li>"+name+"</li></ul>";
+    }
+    i++;
+    return "<li>" +name; 
+});
+}
+
+var htmlString = makeUL(arr).join("</li>");
+document.getElementById("list").innerHTML = htmlString;
+
+document.getElementById("outer").addEventListener('click', addName);
+
+function addName(){ 
+    
+    event.preventDefault();
+    if (event.target.id === "sub"){
+        var name = document.getElementById("fname").value;
+        arr.push(name);
+        htmlString = makeUL(arr).join("</li>");
+        document.getElementById("list").innerHTML = htmlString;
+    }
+}
+    
+ document.getElementById("but1").addEventListener('click', removeLast);
+  document.getElementById("but2").addEventListener('click', removeFirst);
+ 
+ function removeLast(){
+     
+  
+      
+     
+          arr.pop();
+
+      htmlString = makeUL(arr).join("</li>");
+    document.getElementById("list").innerHTML = htmlString;
+     
+     
+ }
+ function removeFirst(){
+      
+     
+          arr.shift();
+
+      htmlString = makeUL(arr).join("</li>");
+    document.getElementById("list").innerHTML = htmlString;
+     
+     
+ }
+ 
+var rmFirt = function(){
+ arr.shift();
+};
+var rmLast = function(){
+   arr.pop();
+};
+var remover = function(callback){
+   callback();
+      htmlString = makeUL(arr).join("</li>");
+    document.getElementById("list").innerHTML = htmlString;
+     
+};
+
+
+function add(){
+    event.preventDefault();
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(document.getElementById("fname").value)
+    node.appendChild(textnode);
+    document.getElementById("mylist").appendChild(node);
+}
+       
+        </script> 
+    </body>
+</html>
