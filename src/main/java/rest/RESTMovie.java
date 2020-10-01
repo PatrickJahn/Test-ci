@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 //Todo Remove or change relevant parts before ACTUAL use
 @Path("movie")
@@ -86,9 +87,16 @@ public class RESTMovie {
     @Path("all")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAllMovies() {
+    public Response getAllMovies() {
+                     
         List<MovieDTO> movie = FACADE.getAll();
-          return GSON.toJson(movie);
+        return Response.ok()
+               .header("Access-Control-Allow-Origin", "*")
+               .header("Access-Control-Allow-Credentials", "true")
+               .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
+               .header("Access-Control-Allow-Methods","GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .entity(GSON.toJson(movie)).build();
+        
     }
     
     
